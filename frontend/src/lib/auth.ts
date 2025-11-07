@@ -1,8 +1,8 @@
-import api from "./api";
+import api from "@lib/api";
 
 export async function loginUser(data: { email: string; password: string }) {
   const res = await api.post("/auth/login", data);
-  return res.data;
+  return res;
 }
 
 export async function logoutUser() {
@@ -18,4 +18,3 @@ export async function getCurrentUser() {
   const res = await api.get("/auth/me");
   return res.data.user;
 }
-  
