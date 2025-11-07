@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models.ts'
-export type * from './prismaNamespace.ts'
+export type * from '../models'
+export type * from './prismaNamespace'
 
 export const Decimal = runtime.Decimal
 
@@ -117,6 +117,7 @@ export const ReferralScalarFieldEnum = {
   hospitalOutcome: 'hospitalOutcome',
   medicalOfficerName: 'medicalOfficerName',
   siteCoordinator: 'siteCoordinator',
+  createdBy: 'createdBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -172,7 +173,8 @@ export const ReferralOrderByRelevanceFieldEnum = {
   notAdmittedReason: 'notAdmittedReason',
   hospitalOutcome: 'hospitalOutcome',
   medicalOfficerName: 'medicalOfficerName',
-  siteCoordinator: 'siteCoordinator'
+  siteCoordinator: 'siteCoordinator',
+  createdBy: 'createdBy'
 } as const
 
 export type ReferralOrderByRelevanceFieldEnum = (typeof ReferralOrderByRelevanceFieldEnum)[keyof typeof ReferralOrderByRelevanceFieldEnum]

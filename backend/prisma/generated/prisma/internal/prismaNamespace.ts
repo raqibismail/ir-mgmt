@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/library"
-import type * as Prisma from "../models.ts"
-import { type PrismaClient } from "./class.ts"
+import type * as Prisma from "../models"
+import { type PrismaClient } from "./class"
 
-export type * from '../models.ts'
+export type * from '../models'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -696,6 +696,7 @@ export const ReferralScalarFieldEnum = {
   hospitalOutcome: 'hospitalOutcome',
   medicalOfficerName: 'medicalOfficerName',
   siteCoordinator: 'siteCoordinator',
+  createdBy: 'createdBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -751,7 +752,8 @@ export const ReferralOrderByRelevanceFieldEnum = {
   notAdmittedReason: 'notAdmittedReason',
   hospitalOutcome: 'hospitalOutcome',
   medicalOfficerName: 'medicalOfficerName',
-  siteCoordinator: 'siteCoordinator'
+  siteCoordinator: 'siteCoordinator',
+  createdBy: 'createdBy'
 } as const
 
 export type ReferralOrderByRelevanceFieldEnum = (typeof ReferralOrderByRelevanceFieldEnum)[keyof typeof ReferralOrderByRelevanceFieldEnum]

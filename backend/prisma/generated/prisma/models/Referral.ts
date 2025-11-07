@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/library"
-import type * as $Enums from "../enums.ts"
-import type * as Prisma from "../internal/prismaNamespace.ts"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Referral
@@ -62,6 +62,7 @@ export type ReferralMinAggregateOutputType = {
   hospitalOutcome: string | null
   medicalOfficerName: string | null
   siteCoordinator: string | null
+  createdBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -90,6 +91,7 @@ export type ReferralMaxAggregateOutputType = {
   hospitalOutcome: string | null
   medicalOfficerName: string | null
   siteCoordinator: string | null
+  createdBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -118,6 +120,7 @@ export type ReferralCountAggregateOutputType = {
   hospitalOutcome: number
   medicalOfficerName: number
   siteCoordinator: number
+  createdBy: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -160,6 +163,7 @@ export type ReferralMinAggregateInputType = {
   hospitalOutcome?: true
   medicalOfficerName?: true
   siteCoordinator?: true
+  createdBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -188,6 +192,7 @@ export type ReferralMaxAggregateInputType = {
   hospitalOutcome?: true
   medicalOfficerName?: true
   siteCoordinator?: true
+  createdBy?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -216,6 +221,7 @@ export type ReferralCountAggregateInputType = {
   hospitalOutcome?: true
   medicalOfficerName?: true
   siteCoordinator?: true
+  createdBy?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -331,6 +337,7 @@ export type ReferralGroupByOutputType = {
   hospitalOutcome: string | null
   medicalOfficerName: string | null
   siteCoordinator: string | null
+  createdBy: string
   createdAt: Date
   updatedAt: Date
   _count: ReferralCountAggregateOutputType | null
@@ -382,8 +389,10 @@ export type ReferralWhereInput = {
   hospitalOutcome?: Prisma.StringNullableFilter<"Referral"> | string | null
   medicalOfficerName?: Prisma.StringNullableFilter<"Referral"> | string | null
   siteCoordinator?: Prisma.StringNullableFilter<"Referral"> | string | null
+  createdBy?: Prisma.StringFilter<"Referral"> | string
   createdAt?: Prisma.DateTimeFilter<"Referral"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Referral"> | Date | string
+  creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ReferralOrderByWithRelationInput = {
@@ -410,8 +419,10 @@ export type ReferralOrderByWithRelationInput = {
   hospitalOutcome?: Prisma.SortOrderInput | Prisma.SortOrder
   medicalOfficerName?: Prisma.SortOrderInput | Prisma.SortOrder
   siteCoordinator?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  creator?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.ReferralOrderByRelevanceInput
 }
 
@@ -442,8 +453,10 @@ export type ReferralWhereUniqueInput = Prisma.AtLeast<{
   hospitalOutcome?: Prisma.StringNullableFilter<"Referral"> | string | null
   medicalOfficerName?: Prisma.StringNullableFilter<"Referral"> | string | null
   siteCoordinator?: Prisma.StringNullableFilter<"Referral"> | string | null
+  createdBy?: Prisma.StringFilter<"Referral"> | string
   createdAt?: Prisma.DateTimeFilter<"Referral"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Referral"> | Date | string
+  creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type ReferralOrderByWithAggregationInput = {
@@ -470,6 +483,7 @@ export type ReferralOrderByWithAggregationInput = {
   hospitalOutcome?: Prisma.SortOrderInput | Prisma.SortOrder
   medicalOfficerName?: Prisma.SortOrderInput | Prisma.SortOrder
   siteCoordinator?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ReferralCountOrderByAggregateInput
@@ -506,6 +520,7 @@ export type ReferralScalarWhereWithAggregatesInput = {
   hospitalOutcome?: Prisma.StringNullableWithAggregatesFilter<"Referral"> | string | null
   medicalOfficerName?: Prisma.StringNullableWithAggregatesFilter<"Referral"> | string | null
   siteCoordinator?: Prisma.StringNullableWithAggregatesFilter<"Referral"> | string | null
+  createdBy?: Prisma.StringWithAggregatesFilter<"Referral"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Referral"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Referral"> | Date | string
 }
@@ -536,6 +551,7 @@ export type ReferralCreateInput = {
   siteCoordinator?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  creator: Prisma.UserCreateNestedOneWithoutReferralsInput
 }
 
 export type ReferralUncheckedCreateInput = {
@@ -562,6 +578,7 @@ export type ReferralUncheckedCreateInput = {
   hospitalOutcome?: string | null
   medicalOfficerName?: string | null
   siteCoordinator?: string | null
+  createdBy: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -592,6 +609,7 @@ export type ReferralUpdateInput = {
   siteCoordinator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  creator?: Prisma.UserUpdateOneRequiredWithoutReferralsNestedInput
 }
 
 export type ReferralUncheckedUpdateInput = {
@@ -618,6 +636,7 @@ export type ReferralUncheckedUpdateInput = {
   hospitalOutcome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalOfficerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   siteCoordinator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -646,6 +665,7 @@ export type ReferralCreateManyInput = {
   hospitalOutcome?: string | null
   medicalOfficerName?: string | null
   siteCoordinator?: string | null
+  createdBy: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -702,8 +722,19 @@ export type ReferralUncheckedUpdateManyInput = {
   hospitalOutcome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalOfficerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   siteCoordinator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReferralListRelationFilter = {
+  every?: Prisma.ReferralWhereInput
+  some?: Prisma.ReferralWhereInput
+  none?: Prisma.ReferralWhereInput
+}
+
+export type ReferralOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ReferralOrderByRelevanceInput = {
@@ -736,6 +767,7 @@ export type ReferralCountOrderByAggregateInput = {
   hospitalOutcome?: Prisma.SortOrder
   medicalOfficerName?: Prisma.SortOrder
   siteCoordinator?: Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -770,6 +802,7 @@ export type ReferralMaxOrderByAggregateInput = {
   hospitalOutcome?: Prisma.SortOrder
   medicalOfficerName?: Prisma.SortOrder
   siteCoordinator?: Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -798,6 +831,7 @@ export type ReferralMinOrderByAggregateInput = {
   hospitalOutcome?: Prisma.SortOrder
   medicalOfficerName?: Prisma.SortOrder
   siteCoordinator?: Prisma.SortOrder
+  createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -806,6 +840,48 @@ export type ReferralSumOrderByAggregateInput = {
   age?: Prisma.SortOrder
   sofaScore?: Prisma.SortOrder
   categoryVentilated?: Prisma.SortOrder
+}
+
+export type ReferralCreateNestedManyWithoutCreatorInput = {
+  create?: Prisma.XOR<Prisma.ReferralCreateWithoutCreatorInput, Prisma.ReferralUncheckedCreateWithoutCreatorInput> | Prisma.ReferralCreateWithoutCreatorInput[] | Prisma.ReferralUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.ReferralCreateOrConnectWithoutCreatorInput | Prisma.ReferralCreateOrConnectWithoutCreatorInput[]
+  createMany?: Prisma.ReferralCreateManyCreatorInputEnvelope
+  connect?: Prisma.ReferralWhereUniqueInput | Prisma.ReferralWhereUniqueInput[]
+}
+
+export type ReferralUncheckedCreateNestedManyWithoutCreatorInput = {
+  create?: Prisma.XOR<Prisma.ReferralCreateWithoutCreatorInput, Prisma.ReferralUncheckedCreateWithoutCreatorInput> | Prisma.ReferralCreateWithoutCreatorInput[] | Prisma.ReferralUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.ReferralCreateOrConnectWithoutCreatorInput | Prisma.ReferralCreateOrConnectWithoutCreatorInput[]
+  createMany?: Prisma.ReferralCreateManyCreatorInputEnvelope
+  connect?: Prisma.ReferralWhereUniqueInput | Prisma.ReferralWhereUniqueInput[]
+}
+
+export type ReferralUpdateManyWithoutCreatorNestedInput = {
+  create?: Prisma.XOR<Prisma.ReferralCreateWithoutCreatorInput, Prisma.ReferralUncheckedCreateWithoutCreatorInput> | Prisma.ReferralCreateWithoutCreatorInput[] | Prisma.ReferralUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.ReferralCreateOrConnectWithoutCreatorInput | Prisma.ReferralCreateOrConnectWithoutCreatorInput[]
+  upsert?: Prisma.ReferralUpsertWithWhereUniqueWithoutCreatorInput | Prisma.ReferralUpsertWithWhereUniqueWithoutCreatorInput[]
+  createMany?: Prisma.ReferralCreateManyCreatorInputEnvelope
+  set?: Prisma.ReferralWhereUniqueInput | Prisma.ReferralWhereUniqueInput[]
+  disconnect?: Prisma.ReferralWhereUniqueInput | Prisma.ReferralWhereUniqueInput[]
+  delete?: Prisma.ReferralWhereUniqueInput | Prisma.ReferralWhereUniqueInput[]
+  connect?: Prisma.ReferralWhereUniqueInput | Prisma.ReferralWhereUniqueInput[]
+  update?: Prisma.ReferralUpdateWithWhereUniqueWithoutCreatorInput | Prisma.ReferralUpdateWithWhereUniqueWithoutCreatorInput[]
+  updateMany?: Prisma.ReferralUpdateManyWithWhereWithoutCreatorInput | Prisma.ReferralUpdateManyWithWhereWithoutCreatorInput[]
+  deleteMany?: Prisma.ReferralScalarWhereInput | Prisma.ReferralScalarWhereInput[]
+}
+
+export type ReferralUncheckedUpdateManyWithoutCreatorNestedInput = {
+  create?: Prisma.XOR<Prisma.ReferralCreateWithoutCreatorInput, Prisma.ReferralUncheckedCreateWithoutCreatorInput> | Prisma.ReferralCreateWithoutCreatorInput[] | Prisma.ReferralUncheckedCreateWithoutCreatorInput[]
+  connectOrCreate?: Prisma.ReferralCreateOrConnectWithoutCreatorInput | Prisma.ReferralCreateOrConnectWithoutCreatorInput[]
+  upsert?: Prisma.ReferralUpsertWithWhereUniqueWithoutCreatorInput | Prisma.ReferralUpsertWithWhereUniqueWithoutCreatorInput[]
+  createMany?: Prisma.ReferralCreateManyCreatorInputEnvelope
+  set?: Prisma.ReferralWhereUniqueInput | Prisma.ReferralWhereUniqueInput[]
+  disconnect?: Prisma.ReferralWhereUniqueInput | Prisma.ReferralWhereUniqueInput[]
+  delete?: Prisma.ReferralWhereUniqueInput | Prisma.ReferralWhereUniqueInput[]
+  connect?: Prisma.ReferralWhereUniqueInput | Prisma.ReferralWhereUniqueInput[]
+  update?: Prisma.ReferralUpdateWithWhereUniqueWithoutCreatorInput | Prisma.ReferralUpdateWithWhereUniqueWithoutCreatorInput[]
+  updateMany?: Prisma.ReferralUpdateManyWithWhereWithoutCreatorInput | Prisma.ReferralUpdateManyWithWhereWithoutCreatorInput[]
+  deleteMany?: Prisma.ReferralScalarWhereInput | Prisma.ReferralScalarWhereInput[]
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -830,6 +906,232 @@ export type NullableEnumSexFieldUpdateOperationsInput = {
 
 export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
+}
+
+export type ReferralCreateWithoutCreatorInput = {
+  id?: string
+  dateOfReferral?: Date | string | null
+  timeOfReferral?: string | null
+  name: string
+  rnNumber?: string | null
+  icNumber?: string | null
+  age?: number | null
+  sex?: $Enums.Sex | null
+  department?: string | null
+  location?: string | null
+  diagnosis?: string | null
+  sofaScore?: number | null
+  categoryVentilated?: number | null
+  reasonForReferral?: string | null
+  intubatedAfterNivHfnc?: boolean | null
+  intubationDate?: Date | string | null
+  admittedToICU?: boolean | null
+  admissionPlanned?: boolean | null
+  anesthesiaRelated?: boolean | null
+  notAdmittedReason?: string | null
+  hospitalOutcome?: string | null
+  medicalOfficerName?: string | null
+  siteCoordinator?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ReferralUncheckedCreateWithoutCreatorInput = {
+  id?: string
+  dateOfReferral?: Date | string | null
+  timeOfReferral?: string | null
+  name: string
+  rnNumber?: string | null
+  icNumber?: string | null
+  age?: number | null
+  sex?: $Enums.Sex | null
+  department?: string | null
+  location?: string | null
+  diagnosis?: string | null
+  sofaScore?: number | null
+  categoryVentilated?: number | null
+  reasonForReferral?: string | null
+  intubatedAfterNivHfnc?: boolean | null
+  intubationDate?: Date | string | null
+  admittedToICU?: boolean | null
+  admissionPlanned?: boolean | null
+  anesthesiaRelated?: boolean | null
+  notAdmittedReason?: string | null
+  hospitalOutcome?: string | null
+  medicalOfficerName?: string | null
+  siteCoordinator?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ReferralCreateOrConnectWithoutCreatorInput = {
+  where: Prisma.ReferralWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReferralCreateWithoutCreatorInput, Prisma.ReferralUncheckedCreateWithoutCreatorInput>
+}
+
+export type ReferralCreateManyCreatorInputEnvelope = {
+  data: Prisma.ReferralCreateManyCreatorInput | Prisma.ReferralCreateManyCreatorInput[]
+  skipDuplicates?: boolean
+}
+
+export type ReferralUpsertWithWhereUniqueWithoutCreatorInput = {
+  where: Prisma.ReferralWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReferralUpdateWithoutCreatorInput, Prisma.ReferralUncheckedUpdateWithoutCreatorInput>
+  create: Prisma.XOR<Prisma.ReferralCreateWithoutCreatorInput, Prisma.ReferralUncheckedCreateWithoutCreatorInput>
+}
+
+export type ReferralUpdateWithWhereUniqueWithoutCreatorInput = {
+  where: Prisma.ReferralWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReferralUpdateWithoutCreatorInput, Prisma.ReferralUncheckedUpdateWithoutCreatorInput>
+}
+
+export type ReferralUpdateManyWithWhereWithoutCreatorInput = {
+  where: Prisma.ReferralScalarWhereInput
+  data: Prisma.XOR<Prisma.ReferralUpdateManyMutationInput, Prisma.ReferralUncheckedUpdateManyWithoutCreatorInput>
+}
+
+export type ReferralScalarWhereInput = {
+  AND?: Prisma.ReferralScalarWhereInput | Prisma.ReferralScalarWhereInput[]
+  OR?: Prisma.ReferralScalarWhereInput[]
+  NOT?: Prisma.ReferralScalarWhereInput | Prisma.ReferralScalarWhereInput[]
+  id?: Prisma.StringFilter<"Referral"> | string
+  dateOfReferral?: Prisma.DateTimeNullableFilter<"Referral"> | Date | string | null
+  timeOfReferral?: Prisma.StringNullableFilter<"Referral"> | string | null
+  name?: Prisma.StringFilter<"Referral"> | string
+  rnNumber?: Prisma.StringNullableFilter<"Referral"> | string | null
+  icNumber?: Prisma.StringNullableFilter<"Referral"> | string | null
+  age?: Prisma.IntNullableFilter<"Referral"> | number | null
+  sex?: Prisma.EnumSexNullableFilter<"Referral"> | $Enums.Sex | null
+  department?: Prisma.StringNullableFilter<"Referral"> | string | null
+  location?: Prisma.StringNullableFilter<"Referral"> | string | null
+  diagnosis?: Prisma.StringNullableFilter<"Referral"> | string | null
+  sofaScore?: Prisma.IntNullableFilter<"Referral"> | number | null
+  categoryVentilated?: Prisma.IntNullableFilter<"Referral"> | number | null
+  reasonForReferral?: Prisma.StringNullableFilter<"Referral"> | string | null
+  intubatedAfterNivHfnc?: Prisma.BoolNullableFilter<"Referral"> | boolean | null
+  intubationDate?: Prisma.DateTimeNullableFilter<"Referral"> | Date | string | null
+  admittedToICU?: Prisma.BoolNullableFilter<"Referral"> | boolean | null
+  admissionPlanned?: Prisma.BoolNullableFilter<"Referral"> | boolean | null
+  anesthesiaRelated?: Prisma.BoolNullableFilter<"Referral"> | boolean | null
+  notAdmittedReason?: Prisma.StringNullableFilter<"Referral"> | string | null
+  hospitalOutcome?: Prisma.StringNullableFilter<"Referral"> | string | null
+  medicalOfficerName?: Prisma.StringNullableFilter<"Referral"> | string | null
+  siteCoordinator?: Prisma.StringNullableFilter<"Referral"> | string | null
+  createdBy?: Prisma.StringFilter<"Referral"> | string
+  createdAt?: Prisma.DateTimeFilter<"Referral"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Referral"> | Date | string
+}
+
+export type ReferralCreateManyCreatorInput = {
+  id?: string
+  dateOfReferral?: Date | string | null
+  timeOfReferral?: string | null
+  name: string
+  rnNumber?: string | null
+  icNumber?: string | null
+  age?: number | null
+  sex?: $Enums.Sex | null
+  department?: string | null
+  location?: string | null
+  diagnosis?: string | null
+  sofaScore?: number | null
+  categoryVentilated?: number | null
+  reasonForReferral?: string | null
+  intubatedAfterNivHfnc?: boolean | null
+  intubationDate?: Date | string | null
+  admittedToICU?: boolean | null
+  admissionPlanned?: boolean | null
+  anesthesiaRelated?: boolean | null
+  notAdmittedReason?: string | null
+  hospitalOutcome?: string | null
+  medicalOfficerName?: string | null
+  siteCoordinator?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ReferralUpdateWithoutCreatorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfReferral?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timeOfReferral?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  rnNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableEnumSexFieldUpdateOperationsInput | $Enums.Sex | null
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sofaScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  categoryVentilated?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  reasonForReferral?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intubatedAfterNivHfnc?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  intubationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  admittedToICU?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  admissionPlanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  anesthesiaRelated?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  notAdmittedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hospitalOutcome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalOfficerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteCoordinator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReferralUncheckedUpdateWithoutCreatorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfReferral?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timeOfReferral?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  rnNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableEnumSexFieldUpdateOperationsInput | $Enums.Sex | null
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sofaScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  categoryVentilated?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  reasonForReferral?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intubatedAfterNivHfnc?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  intubationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  admittedToICU?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  admissionPlanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  anesthesiaRelated?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  notAdmittedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hospitalOutcome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalOfficerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteCoordinator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReferralUncheckedUpdateManyWithoutCreatorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfReferral?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  timeOfReferral?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  rnNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  icNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  age?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sex?: Prisma.NullableEnumSexFieldUpdateOperationsInput | $Enums.Sex | null
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sofaScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  categoryVentilated?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  reasonForReferral?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  intubatedAfterNivHfnc?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  intubationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  admittedToICU?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  admissionPlanned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  anesthesiaRelated?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  notAdmittedReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hospitalOutcome?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalOfficerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteCoordinator?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -858,8 +1160,10 @@ export type ReferralSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   hospitalOutcome?: boolean
   medicalOfficerName?: boolean
   siteCoordinator?: boolean
+  createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["referral"]>
 
 
@@ -888,15 +1192,21 @@ export type ReferralSelectScalar = {
   hospitalOutcome?: boolean
   medicalOfficerName?: boolean
   siteCoordinator?: boolean
+  createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ReferralOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "dateOfReferral" | "timeOfReferral" | "name" | "rnNumber" | "icNumber" | "age" | "sex" | "department" | "location" | "diagnosis" | "sofaScore" | "categoryVentilated" | "reasonForReferral" | "intubatedAfterNivHfnc" | "intubationDate" | "admittedToICU" | "admissionPlanned" | "anesthesiaRelated" | "notAdmittedReason" | "hospitalOutcome" | "medicalOfficerName" | "siteCoordinator" | "createdAt" | "updatedAt", ExtArgs["result"]["referral"]>
+export type ReferralOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "dateOfReferral" | "timeOfReferral" | "name" | "rnNumber" | "icNumber" | "age" | "sex" | "department" | "location" | "diagnosis" | "sofaScore" | "categoryVentilated" | "reasonForReferral" | "intubatedAfterNivHfnc" | "intubationDate" | "admittedToICU" | "admissionPlanned" | "anesthesiaRelated" | "notAdmittedReason" | "hospitalOutcome" | "medicalOfficerName" | "siteCoordinator" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["referral"]>
+export type ReferralInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
 
 export type $ReferralPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Referral"
-  objects: {}
+  objects: {
+    creator: Prisma.$UserPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     dateOfReferral: Date | null
@@ -921,6 +1231,7 @@ export type $ReferralPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     hospitalOutcome: string | null
     medicalOfficerName: string | null
     siteCoordinator: string | null
+    createdBy: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["referral"]>
@@ -1263,6 +1574,7 @@ readonly fields: ReferralFieldRefs;
  */
 export interface Prisma__ReferralClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1315,6 +1627,7 @@ export interface ReferralFieldRefs {
   readonly hospitalOutcome: Prisma.FieldRef<"Referral", 'String'>
   readonly medicalOfficerName: Prisma.FieldRef<"Referral", 'String'>
   readonly siteCoordinator: Prisma.FieldRef<"Referral", 'String'>
+  readonly createdBy: Prisma.FieldRef<"Referral", 'String'>
   readonly createdAt: Prisma.FieldRef<"Referral", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Referral", 'DateTime'>
 }
@@ -1334,6 +1647,10 @@ export type ReferralFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.ReferralOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReferralInclude<ExtArgs> | null
+  /**
    * Filter, which Referral to fetch.
    */
   where: Prisma.ReferralWhereUniqueInput
@@ -1352,6 +1669,10 @@ export type ReferralFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.ReferralOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReferralInclude<ExtArgs> | null
+  /**
    * Filter, which Referral to fetch.
    */
   where: Prisma.ReferralWhereUniqueInput
@@ -1369,6 +1690,10 @@ export type ReferralFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Referral
    */
   omit?: Prisma.ReferralOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReferralInclude<ExtArgs> | null
   /**
    * Filter, which Referral to fetch.
    */
@@ -1418,6 +1743,10 @@ export type ReferralFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.ReferralOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReferralInclude<ExtArgs> | null
+  /**
    * Filter, which Referral to fetch.
    */
   where?: Prisma.ReferralWhereInput
@@ -1466,6 +1795,10 @@ export type ReferralFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.ReferralOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReferralInclude<ExtArgs> | null
+  /**
    * Filter, which Referrals to fetch.
    */
   where?: Prisma.ReferralWhereInput
@@ -1509,6 +1842,10 @@ export type ReferralCreateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.ReferralOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReferralInclude<ExtArgs> | null
+  /**
    * The data needed to create a Referral.
    */
   data: Prisma.XOR<Prisma.ReferralCreateInput, Prisma.ReferralUncheckedCreateInput>
@@ -1537,6 +1874,10 @@ export type ReferralUpdateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Referral
    */
   omit?: Prisma.ReferralOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReferralInclude<ExtArgs> | null
   /**
    * The data needed to update a Referral.
    */
@@ -1578,6 +1919,10 @@ export type ReferralUpsertArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.ReferralOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReferralInclude<ExtArgs> | null
+  /**
    * The filter to search for the Referral to update in case it exists.
    */
   where: Prisma.ReferralWhereUniqueInput
@@ -1603,6 +1948,10 @@ export type ReferralDeleteArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Referral
    */
   omit?: Prisma.ReferralOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReferralInclude<ExtArgs> | null
   /**
    * Filter which Referral to delete.
    */
@@ -1635,4 +1984,8 @@ export type ReferralDefaultArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Referral
    */
   omit?: Prisma.ReferralOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReferralInclude<ExtArgs> | null
 }

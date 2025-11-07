@@ -8,7 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.ts'
-export type * from './models/Session.ts'
-export type * from './models/Referral.ts'
-export type * from './commonInputTypes.ts'
+export type * from './models/User'
+export type * from './models/Session'
+export type * from './models/Referral'
+export type * from './commonInputTypes'

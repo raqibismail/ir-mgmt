@@ -1,0 +1,24 @@
+{
+  "name": "ir-mgmt",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/raqibismail/ir-mgmt#readme",
+  "bugs": {
+    "url": "https://github.com/raqibismail/ir-mgmt/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raqibismail/ir-mgmt.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
