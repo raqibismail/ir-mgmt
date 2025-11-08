@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@context/AuthContext";
+import { AnimatePresence } from "framer-motion";
 
 
 export const metadata: Metadata = {
@@ -16,10 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased bg-accent`}
+        className={`antialiased bg-gradient-apple`}
       >
         <AuthProvider>
-          {children}
+          <AnimatePresence mode="wait">
+            {children}
+          </AnimatePresence>
         </AuthProvider>
       </body>
     </html>

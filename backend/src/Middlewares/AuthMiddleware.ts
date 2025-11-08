@@ -24,18 +24,11 @@ export async function authenticate(
   res: Response,
   next: NextFunction
 ) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return next(new AppError(401, "No token provided"));
-  }
-
-  const token = authHeader.split(" ")[1];
-
+  const token = req.cookies?.token; // ⬅️ read cookie
+  if (!token) return next(new AppError(401, "No token provided"));
 
   try {
     const decoded = verifyToken(token);
-
-    // Check if token exists in session table
     const session = await prisma.session.findUnique({
       where: { token },
     });
@@ -44,7 +37,6 @@ export async function authenticate(
       return next(new AppError(401, "Session expired or invalid"));
     }
 
-    // Attach user info to request
     req.user = { id: decoded.id };
     next();
   } catch (err) {

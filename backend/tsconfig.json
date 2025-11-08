@@ -25,8 +25,8 @@
       "@Models/*": ["./src/Models/*"],
       "@Middlewares/*": ["./src/Middlewares/*"],
       "@Utils/*": ["./src/Utils/*"],
-      "@prisma/*": ["./prisma/*"],
       "@gen-prisma/*": ["./prisma/generated/*"],
+      "@prisma-client": ["./prisma/client.ts"]
     }
   },
   "include": [

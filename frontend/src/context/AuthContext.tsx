@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { loginUser, logoutUser, getCurrentUser } from "@lib/auth";
+import api from "@/lib/api";
 
 type User = {
     id: number;
@@ -26,32 +26,33 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     // 🔁 Restore session on refresh
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            setLoading(false);
-            return;
-        }
-
-        getCurrentUser()
-            .then((user) => setUser(user))
-            .catch(() => {
-                localStorage.removeItem("token");
+        const restoreSession = async () => {
+            try {
+                const res = await api.get("/auth/me", { withCredentials: true });
+                setUser(res.data.user);
+            } catch {
                 setUser(null);
-            })
-            .finally(() => setLoading(false));
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        restoreSession();
     }, []);
 
     // 🔐 Login function
     async function login(email: string, password: string) {
-        const res = await loginUser({ email, password });
-        localStorage.setItem("token", res.data.token);
+        const res = await api.post(
+            "/auth/login",
+            { email, password },
+            { withCredentials: true } // ⬅️ this sends/receives cookies
+        );
         setUser(res.data.user);
     }
 
     // 🚪 Logout function
     async function logout() {
-        await logoutUser();
-        localStorage.removeItem("token");
+        await api.post("/auth/logout", {}, { withCredentials: true });
         setUser(null);
     }
 

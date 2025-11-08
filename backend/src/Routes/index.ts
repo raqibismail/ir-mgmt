@@ -5,16 +5,8 @@ import ReferralRoutes from "@Routes/ReferralRoutes";
 
 const router = Router();
 
-// Define all routes here - similar to Laravel's api.php
-const routes = [
-  { path: "/auth", router: AuthRoutes },
-  { path: "/users", router: UserRoutes },
-  { path: "/referrals", router: ReferralRoutes },
-];
-
-// Register all routes dynamically
-routes.forEach((route) => {
-  router.use(route.path, route.router);
-});
+router.use("/auth", AuthRoutes);
+router.use("/users", UserRoutes);
+router.use("/referrals", ReferralRoutes);
 
 export default router;
