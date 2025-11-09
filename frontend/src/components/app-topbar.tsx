@@ -12,11 +12,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useAuth } from "@/context/AuthContext"
-import { useRouter } from "next/navigation"
+import { useSelectedLayoutSegments, usePathname, useSelectedLayoutSegment, useRouter } from "next/navigation"
+
 
 export function Topbar() {
     const { user, logout } = useAuth()
     const router = useRouter()
+    const segments = useSelectedLayoutSegments()
+    const pathName = usePathname()
 
     const handleLogout = async () => {
         await logout()
@@ -29,7 +32,7 @@ export function Topbar() {
             <div className="flex items-center gap-3">
                 <SidebarTrigger className="text-slate-100" />
                 <h1 className="text-lg font-semibold tracking-tight text-slate-50">
-                    Dashboard
+                    {pathName}
                 </h1>
             </div>
 
