@@ -18,11 +18,16 @@ export default function RootLayout({
     <html lang="en">
       <body className="overflow-y-scroll antialiased min-h-screen">
         <AuthProvider>
-          <AnimatePresence mode="wait">
-            <div className="flex flex-col min-h-screen">
-              {/* Topbar */}
+          <AnimatePresence mode="wait">{children}</AnimatePresence>
+        </AuthProvider>
+      </body>
+    </html>
+  );
+}
+
+{
+  /* <div className="flex flex-col min-h-screen">
               <Topbar />
-              {/* Main Content */}
               <main className="flex flex-1 justify-center items-center px-6 py-10">
                 <div
                   className="w-full max-w-7xl  rounded-2xl 
@@ -31,10 +36,5 @@ export default function RootLayout({
                   {children}
                 </div>
               </main>
-            </div>
-          </AnimatePresence>
-        </AuthProvider>
-      </body>
-    </html>
-  );
+            </div> */
 }

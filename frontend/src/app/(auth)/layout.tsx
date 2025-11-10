@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { AuthProvider } from "@/context/AuthContext";
+import Image from "next/image";
 
 export default function RootLayout({
   children,
@@ -26,9 +27,17 @@ export default function RootLayout({
   };
 
   return (
-    <div className="bg-gradient-apple flex min-h-screen w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <AnimatePresence mode="wait">
+    <div className="flex flex-col min-h-screen">
+      <div className="flex justify-center items-center py-20">
+        <h1 className="text-9xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-cyan-400 mb-10 text-center">
+          ICUR
+        </h1>
+      </div>
+      <main className="flex flex-1 justify-center">
+        <div
+          className="w-full max-w-md  rounded-2xl 
+                  text-slate-100"
+        >
           <motion.div
             key={pathName}
             variants={variants}
@@ -38,32 +47,10 @@ export default function RootLayout({
             transition={{ duration: 0.2, ease: "easeInOut" }}
             layoutId="auth-card"
           >
-            <Card
-              className="
-                bg-(--auth-card)
-                backdrop-blur-xl
-                border border-white/20
-                shadow-(--auth-card-shadow)
-                hover:shadow-(--auth-card-shadow-hover)
-                transition-all duration-300
-                rounded-2xl
-              "
-            >
-              <CardHeader>
-                <CardTitle className="text-slate-50 text-2xl font-semibold text-center">
-                  {pathName === "/login" ? "Welcome Back" : "Create an Account"}
-                </CardTitle>
-                <CardDescription className="text-slate-100/80 text-center">
-                  {pathName === "/login"
-                    ? "Sign in to continue"
-                    : "Join us to get started"}
-                </CardDescription>
-              </CardHeader>
-              <CardContent></CardContent>
-            </Card>
+            {children}
           </motion.div>
-        </AnimatePresence>
-      </div>
+        </div>
+      </main>
     </div>
   );
 }
