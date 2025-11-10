@@ -28,7 +28,7 @@ const items = [
 export function AppSidebar() {
   return (
     <Sidebar
-      collapsible="icon"
+      collapsible="offcanvas"
       className="bg-white/10 backdrop-blur-2xl text-slate-100 shadow-lg shadow-indigo-900/30 
         "
     >

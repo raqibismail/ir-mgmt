@@ -58,7 +58,7 @@ export function FormField({
           type={type}
           placeholder={placeholder}
           required={required}
-          className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-sm"
+          className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md"
         />
       </Field>
     );
@@ -74,7 +74,7 @@ export function FormField({
           {label}
         </FieldLabel>
         <Select name={name} required={required}>
-          <SelectTrigger className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-sm">
+          <SelectTrigger className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md">
             <SelectValue placeholder={`Select a ${placeholder}`} />
           </SelectTrigger>
           <SelectContent>
@@ -103,7 +103,7 @@ export function FormField({
           name={name}
           placeholder={placeholder}
           required={required}
-          className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-sm"
+          className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md"
         />
       </Field>
     );
@@ -129,7 +129,7 @@ export function FormField({
             id="date"
             value={value}
             placeholder="June 01, 2025"
-            className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-sm"
+            className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md"
             onChange={(e) => {
               const date = new Date(e.target.value);
               setValue(e.target.value);
@@ -205,7 +205,7 @@ export function FormField({
                 id="date"
                 value={value}
                 placeholder="June 01, 2025"
-                className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-sm"
+                className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md"
                 onChange={(e) => {
                   const date = new Date(e.target.value);
                   setValue(e.target.value);
@@ -262,7 +262,7 @@ export function FormField({
               id="time-picker"
               step="60"
               defaultValue="10:30:00"
-              className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-sm appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+              className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
             />
           </div>
         </div>
