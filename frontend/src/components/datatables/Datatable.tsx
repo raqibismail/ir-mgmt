@@ -113,8 +113,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="w-full">
       {/* Toolbar */}
-      <div className="flex items-center justify-between py-4">
-        <h2 className="text-lg font-semibold text-slate-100">Referral Data</h2>
+      <div className="flex items-center justify-end py-4">
         <div className="flex flex-row gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

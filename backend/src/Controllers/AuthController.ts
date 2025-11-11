@@ -133,8 +133,6 @@ export async function getCurrentUser(token: string) {
       id: true,
       email: true,
       name: true,
-      createdAt: true,
-      updatedAt: true,
     },
   });
 

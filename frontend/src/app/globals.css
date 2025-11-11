@@ -58,7 +58,7 @@
   --color-auth-border: var(--auth-border);
   /* End Auth Page */
 
-  --inset-shadow-md: inset 0 15px 9px rgba(0, 0, 0, 0.10);
+  --inset-shadow-md: inset 1px 1px 16px 2px rgba(0, 0, 0, 0.25)
 }
 
 :root {
@@ -82,10 +82,10 @@
 
   /* Primary & Secondary */
   --primary: var(--color-lavender);
-  --primary-foreground: #f3f4f6;
+  --primary-foreground: var(--color-navy-dark);
   /* off-white */
-  --secondary: var(--color-lavender);
-  --secondary-foreground: var(--color-navy-dark);
+  --secondary: var(--color-navy);
+  --secondary-foreground: var(--color-lavender);
 
   /* Accents and Muted */
   --accent: var(--color-lavender);
@@ -134,6 +134,9 @@
   --auth-card-shadow: 0 0 40px rgba(83, 92, 145, 0.3);
   --auth-card-shadow-hover: 0 0 60px rgba(146, 144, 195, 0.4);
   --placeholder: rgba(255, 255, 255, 0.4);
+
+  --inset-shadow-app: ;
+  --box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .dark {
@@ -163,12 +166,21 @@
     @apply border-border outline-ring/50;
   }
 
+  /* --color-navy-dark: #070F2B;
+  --color-navy: #1B1A55;
+  --color-indigo: #7047a5;
+  --color-lavender: #bdbcdd; */
+
+  /* background-image: 
+  radial-gradient(closest-corner at 40% 70%, #FFFFFF 0%, rgb(171, 171, 171), 50%, transparent),
+  radial-gradient(closest-corner circle at 80% 20%, #FFFFFF 0%, rgb(171, 171, 171), 20%, transparent),
+  radial-gradient(closest-corner circle at 10% 10%, #FFFFFF 0%, rgb(171, 171, 171) 25%); */
+
   body {
-    background: radial-gradient(circle at bottom left,
-        var(--color-indigo) 0%,
-        var(--color-navy) 50%,
-        var(--color-navy-dark) 100%);
+    background:
+      radial-gradient(circle at bottom left, #54367c 0%, #070F2B 60%, transparent),
+      radial-gradient(circle at top right, #54367c 0%, #070F2B 40%, #1B1A55 100%);
+    background-color: #eee;
     color: var(--foreground);
   }
-
 }

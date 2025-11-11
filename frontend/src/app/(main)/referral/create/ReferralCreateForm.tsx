@@ -1,109 +1,78 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { FieldGroup } from "@/components/ui/field";
-import { FormField } from "@/components/forms/form-field";
 import { Separator } from "@/components/ui/separator";
+import StepPatientInfo from "./_forms/StepPatientInfo";
+import StepMedicalDetails from "./_forms/StepMedicalDetails";
+import StepReferralDetails from "./_forms/StepReferralDetails";
 
 export default function ReferralCreateForm() {
-  const router = useRouter();
+  const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const testSelect = [
-    { id: 1, value: "A" },
-    { id: 2, value: "B" },
-    { id: 3, value: "C" },
-    { id: 4, value: "D" },
-  ];
+  const [formData, setFormData] = useState<any>({
+    dateOfReferral: new Date(),
+    timeOfReferral: "",
+    name: "",
+    rnNumber: "",
+    icNumber: "",
+    age: "",
+    department: "",
+    location: "",
+    diagnosis: "",
+    sofaScore: "",
+    reasonForReferral: "",
+    medicalOfficerName: "",
+    siteCoordinator: "",
+    test: "",
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmitAll = async () => {
     setIsSubmitting(true);
+    console.log("Combined Data:", formData);
 
-    const formData = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(formData.entries());
-
-    console.log(payload);
-
-    // ... API POST logic here
+    // example API POST
+    // await fetch("/api/referrals", { method: "POST", body: JSON.stringify(formData) });
 
     setIsSubmitting(false);
   };
 
+
+
+  const nextStep = () => setStep((prev) => prev + 1);
+  const prevStep = () => setStep((prev) => prev - 1);
+
   return (
-    <div className="w-full">
-      <div className="flex flex-col space-y-4 py-4">
-        <h2 className="text-lg font-semibold text-slate-100">Referral Form</h2>
-        <Separator />
-        <form onSubmit={handleSubmit} className="space-y-8 mt-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormField
-              name="dateOfReferral"
-              label="Date of Referral"
-              type="date"
-            />
-            <FormField
-              name="timeOfReferral"
-              label="Time of Referral"
-              type="datetime"
-            />
-          </div>
+    <div className="w-full py-6 space-y-4">
+      <h2 className="text-lg font-semibold text-slate-100">Referral Form</h2>
+      <Separator />
 
-          <FormField
-            name="name"
-            label="Patient Name"
-            placeholder="John Doe"
-            required
-          />
+      {step === 1 && (
+        <StepPatientInfo
+          formData={formData}
+          setFormData={setFormData}
+          onNext={nextStep}
+        />
+      )}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <FormField name="rnNumber" label="RN Number" />
-            <FormField name="icNumber" label="IC Number" />
-            <FormField name="age" label="Age" type="number" />
-          </div>
+      {step === 2 && (
+        <StepMedicalDetails
+          formData={formData}
+          setFormData={setFormData}
+          onNext={nextStep}
+          onPrev={prevStep}
+        />
+      )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormField name="department" label="Department" />
-            <FormField name="location" label="Location" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormField name="diagnosis" label="Diagnosis" />
-            <FormField name="sofaScore" label="SOFA Score" type="number" />
-          </div>
-
-          <FormField
-            name="reasonForReferral"
-            label="Reason for Referral"
-            placeholder="Describe briefly..."
-            type="textarea"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormField name="medicalOfficerName" label="Medical Officer Name" />
-            <FormField name="siteCoordinator" label="Site Coordinator" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormField
-              name="test"
-              label="Test"
-              type="select"
-              options={testSelect}
-              placeholder="Test"
-            />
-          </div>
-
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-linear-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-medium py-2 rounded-lg shadow-md shadow-indigo-800/30 transition-all"
-          >
-            {isSubmitting ? "Submitting..." : "Submit Referral"}
-          </Button>
-        </form>
-      </div>
+      {step === 3 && (
+        <StepReferralDetails
+          formData={formData}
+          setFormData={setFormData}
+          onPrev={prevStep}
+          onSubmit={handleSubmitAll}
+          isSubmitting={isSubmitting}
+        />
+      )}
     </div>
   );
 }

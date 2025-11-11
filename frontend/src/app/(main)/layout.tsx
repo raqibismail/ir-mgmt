@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Topbar } from "@/components/app-topbar";
+import { useAuth } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "ICUR Dashboard",
@@ -11,10 +12,11 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Topbar */}
-        <Topbar />
+      <Topbar />
       {/* Main Content */}
       <main className="flex flex-1 justify-center items-center px-6 py-10">
         <div

@@ -24,17 +24,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-{
-  /* <div className="flex flex-col min-h-screen">
-              <Topbar />
-              <main className="flex flex-1 justify-center items-center px-6 py-10">
-                <div
-                  className="w-full max-w-7xl  rounded-2xl 
-                  text-slate-100"
-                >
-                  {children}
-                </div>
-              </main>
-            </div> */
-}

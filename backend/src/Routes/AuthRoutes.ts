@@ -57,14 +57,18 @@ router.post("/logout", authenticate, async (req, res, next) => {
   }
 });
 
-router.post("/me", authenticate, async (req, res, next) => {
+router.get("/me", authenticate, async (req, res, next) => {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    let user;
-    if (token) {
-      user = await getCurrentUser(token);
+    const token = req.cookies?.token;
+    if (!token) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No token provided" });
     }
-    res.status(200).json({ success: true, data: user });
+
+    const user = await getCurrentUser(token);
+
+    return res.status(200).json({ success: true, data: user });
   } catch (error) {
     next(error);
   }

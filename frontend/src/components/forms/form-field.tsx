@@ -1,5 +1,9 @@
+"use client";
+
 import * as React from "react";
 import { Field, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -7,31 +11,38 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "../ui/textarea";
-import { CalendarIcon, ChevronDownIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { CalendarIcon } from "lucide-react";
 import { formatDate, isValidDate } from "@/lib/helpers";
 
-interface SelectOptions {
+interface Option {
   id: string | number;
-  value: any;
+  value: string;
 }
 
 interface FormFieldProps {
   name: string;
   label: string;
-  type?: string;
+  type?:
+    | "text"
+    | "email"
+    | "password"
+    | "select"
+    | "textarea"
+    | "date"
+    | "datetime";
   placeholder?: string;
   required?: boolean;
   className?: string;
-  options?: SelectOptions[];
+  options?: Option[];
+  value?: any;
+  onChange?: (e: any) => void;
 }
 
 export function FormField({
@@ -41,234 +52,166 @@ export function FormField({
   placeholder,
   required,
   className,
-  options,
+  options = [],
+  onChange,
+  value,
 }: FormFieldProps) {
-  if (type === "text" || type === "password" || type === "email") {
+  const labelEl = (
+    <FieldLabel
+      className="text-primary font-sans font-medium capitalize"
+      htmlFor={name}
+    >
+      {label}
+    </FieldLabel>
+  );
+
+  const baseInputClass =
+    "bg-slate-100 border border-slate-300 inset-shadow-md text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md";
+
+  // ---------- TEXT / PASSWORD / EMAIL ----------
+  if (["text", "email", "password"].includes(type))
     return (
       <Field className={className}>
-        <FieldLabel
-          className="text-primary font-sans font-medium capitalize "
-          htmlFor={name}
-        >
-          {label}
-        </FieldLabel>
+        {labelEl}
         <Input
           id={name}
           name={name}
           type={type}
           placeholder={placeholder}
           required={required}
-          className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md"
+          className={baseInputClass}
+          value={value ?? ""}
+          onChange={onChange}
         />
       </Field>
     );
-  }
 
-  if (type === "select") {
+  // ---------- SELECT ----------
+  if (type === "select")
     return (
       <Field className={className}>
-        <FieldLabel
-          className="text-primary font-sans font-medium capitalize "
-          htmlFor={name}
+        {labelEl}
+        <Select
+          name={name}
+          required={required}
+          value={value ?? ""}
+          onValueChange={(val) =>
+            onChange?.({ target: { name, value: val } } as any)
+          }
         >
-          {label}
-        </FieldLabel>
-        <Select name={name} required={required}>
-          <SelectTrigger className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md">
-            <SelectValue placeholder={`Select a ${placeholder}`} />
+          <SelectTrigger className={baseInputClass}>
+            <SelectValue
+              placeholder={`Select ${placeholder ?? label.toLowerCase()}`}
+            />
           </SelectTrigger>
           <SelectContent>
-            {options!.map((e) => (
-              <SelectItem key={e.id.toString()} value={e.value}>
-                {e.value}
+            {options.map((opt) => (
+              <SelectItem key={opt.id} value={opt.value}>
+                {opt.value}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </Field>
     );
-  }
 
-  if (type === "textarea") {
+  // ---------- TEXTAREA ----------
+  if (type === "textarea")
     return (
       <Field className={className}>
-        <FieldLabel
-          className="text-primary font-sans font-medium capitalize "
-          htmlFor={name}
-        >
-          {label}
-        </FieldLabel>
+        {labelEl}
         <Textarea
           id={name}
           name={name}
           placeholder={placeholder}
           required={required}
-          className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md"
+          className={baseInputClass}
+          value={value ?? ""}
+          onChange={onChange}
         />
       </Field>
     );
-  }
 
-  if (type === "date") {
-    const dateFormat = "DD MMM YYYY";
-    const [open, setOpen] = React.useState(false);
-    const [date, setDate] = React.useState<Date | undefined>(new Date());
-    const [month, setMonth] = React.useState<Date | undefined>(date);
-    const [value, setValue] = React.useState(formatDate(date, dateFormat));
+  // ---------- DATE ----------
+  const [open, setOpen] = React.useState(false);
 
+  const parsedDate =
+    value instanceof Date ? value : value ? new Date(value) : undefined;
+
+  const dateString = parsedDate ? formatDate(parsedDate, "DD MMM YYYY") : "";
+
+  const handleDateChange = (newDate?: Date) => {
+    if (newDate) {
+      onChange?.({
+        target: { name, value: newDate },
+      } as any);
+    }
+    setOpen(false);
+  };
+
+  const DateInput = (
+    <div className="relative flex gap-2">
+      <Input
+        id={name}
+        value={dateString}
+        onChange={(e) => {
+          const d = new Date(e.target.value);
+          onChange?.({ target: { name, value: d } } as any);
+        }}
+        onKeyDown={(e) =>
+          e.key === "ArrowDown" && (e.preventDefault(), setOpen(true))
+        }
+        placeholder="June 01, 2025"
+        className={baseInputClass}
+      />
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="ghost"
+            className="absolute top-1/2 right-2 size-6 -translate-y-1/2"
+          >
+            <CalendarIcon className="size-3.5 text-secondary" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="end" sideOffset={10}>
+          <Calendar
+            mode="single"
+            selected={parsedDate}
+            captionLayout="dropdown"
+            onSelect={handleDateChange}
+          />
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+
+  // ---------- DATETIME ----------
+  if (type === "datetime")
     return (
       <Field className={className}>
-        <FieldLabel
-          className="text-primary font-sans font-medium capitalize "
-          htmlFor={name}
-        >
-          {label}
-        </FieldLabel>
-        <div className="relative flex gap-2">
+        {labelEl}
+        <div className="flex w-full gap-4">
+          <div className="flex-initial w-2/3">{DateInput}</div>
           <Input
-            id="date"
-            value={value}
-            placeholder="June 01, 2025"
-            className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md"
-            onChange={(e) => {
-              const date = new Date(e.target.value);
-              setValue(e.target.value);
-              if (isValidDate(date)) {
-                setDate(date);
-                setMonth(date);
-              }
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "ArrowDown") {
-                e.preventDefault();
-                setOpen(true);
-              }
-            }}
+            type="time"
+            id={`${name}-time`}
+            step="60"
+            value={value?.time ?? ""}
+            onChange={(e) =>
+              onChange?.({
+                target: { name, value: { ...value, time: e.target.value } },
+              } as any)
+            }
+            className={`${baseInputClass} flex-initial w-1/3 appearance-none [&::-webkit-calendar-picker-indicator]:hidden`}
           />
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                id="date-picker"
-                variant="ghost"
-                className="absolute top-1/2 right-2 size-6 -translate-y-1/2"
-              >
-                <CalendarIcon className="size-3.5 text-primary" />
-                <span className="sr-only">Select date</span>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent
-              className="w-auto overflow-hidden p-0"
-              align="end"
-              alignOffset={-8}
-              sideOffset={10}
-            >
-              <Calendar
-                mode="single"
-                selected={date}
-                captionLayout="dropdown"
-                month={month}
-                onMonthChange={setMonth}
-                onSelect={(date) => {
-                  setDate(date);
-                  setValue(formatDate(date, dateFormat));
-                  setOpen(false);
-                }}
-              />
-            </PopoverContent>
-          </Popover>
         </div>
       </Field>
     );
-  }
 
-  if (type === "datetime") {
-    const dateFormat = "DD MMM YYYY";
-    const [open, setOpen] = React.useState(false);
-    const [date, setDate] = React.useState<Date | undefined>(new Date());
-    const [month, setMonth] = React.useState<Date | undefined>(date);
-    const [value, setValue] = React.useState(formatDate(date, dateFormat));
-
-    return (
-      <Field className={className}>
-        <FieldLabel
-          className="text-primary font-sans font-medium capitalize"
-          htmlFor={name}
-        >
-          {label}
-        </FieldLabel>
-
-        <div className="flex flex-row gap-4">
-          {/* Date Picker */}
-          <div className="flex-1">
-            <div className="relative flex gap-2">
-              <Input
-                id="date"
-                value={value}
-                placeholder="June 01, 2025"
-                className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md"
-                onChange={(e) => {
-                  const date = new Date(e.target.value);
-                  setValue(e.target.value);
-                  if (isValidDate(date)) {
-                    setDate(date);
-                    setMonth(date);
-                  }
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "ArrowDown") {
-                    e.preventDefault();
-                    setOpen(true);
-                  }
-                }}
-              />
-              <Popover open={open} onOpenChange={setOpen}>
-                <PopoverTrigger asChild>
-                  <Button
-                    id="date-picker"
-                    variant="ghost"
-                    className="absolute top-1/2 right-2 size-6 -translate-y-1/2"
-                  >
-                    <CalendarIcon className="size-3.5 text-primary" />
-                    <span className="sr-only">Select date</span>
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent
-                  className="w-auto overflow-hidden p-0"
-                  align="end"
-                  alignOffset={-8}
-                  sideOffset={10}
-                >
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    captionLayout="dropdown"
-                    month={month}
-                    onMonthChange={setMonth}
-                    onSelect={(date) => {
-                      setDate(date);
-                      setValue(formatDate(date, dateFormat));
-                      setOpen(false);
-                    }}
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
-          </div>
-
-          {/* Time Picker */}
-          <div className="flex-1">
-            <Input
-              type="time"
-              id="time-picker"
-              step="60"
-              defaultValue="10:30:00"
-              className="bg-slate-100 border border-slate-300 text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition rounded-md inset-shadow-md appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
-            />
-          </div>
-        </div>
-      </Field>
-    )
-  }
-
+  return (
+    <Field className={className}>
+      {labelEl}
+      {DateInput}
+    </Field>
+  );
 }
-
