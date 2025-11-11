@@ -14,7 +14,7 @@ export default function MainLayout({
   return (
     <div className="flex flex-col min-h-screen">
       {/* Topbar */}
-      <Topbar />
+        <Topbar />
       {/* Main Content */}
       <main className="flex flex-1 justify-center items-center px-6 py-10">
         <div

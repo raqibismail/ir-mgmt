@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             { email, password },
             { withCredentials: true } // ⬅️ this sends/receives cookies
         );
-        setUser(res.data.user);
+        setUser(res.data.data.user);
     }
 
     // 🚪 Logout function
